@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{character.name}}</title>
+</head>
+<body>
+<h1>My character</h1>
+<h2>{{character.name}}</h2>
+<h3>{{character.level}}</h3>
+<a href="/character/update/{{character.id}}">Modifier</a><br>
+<a href="/character/delete/{{character.id}}" onclick="return confirm('Supprimer le personnage ?')">Supprimer</a><br>
+<a href="/character">< Retour</a>
+</body>
+</html>

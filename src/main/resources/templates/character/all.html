@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    {{#characters}}
+    <h1><a href="/character/{{id}}">{{name}}</a></h1>
+    <h3>{{level}}</h3>
+    {{/characters}}
+
+    <a href="/character/add">Ajouter un personnage</a>
+</div>
+</body>
+</html>
