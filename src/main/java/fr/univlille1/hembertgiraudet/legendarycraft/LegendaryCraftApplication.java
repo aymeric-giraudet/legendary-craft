@@ -1,7 +1,9 @@
 package fr.univlille1.hembertgiraudet.legendarycraft;
 
+import fr.univlille1.hembertgiraudet.legendarycraft.model.Account;
 import fr.univlille1.hembertgiraudet.legendarycraft.model.Item;
 import fr.univlille1.hembertgiraudet.legendarycraft.model.Character;
+import fr.univlille1.hembertgiraudet.legendarycraft.repository.AccountRepository;
 import fr.univlille1.hembertgiraudet.legendarycraft.repository.CharacterRepository;
 import fr.univlille1.hembertgiraudet.legendarycraft.repository.ItemRepository;
 import org.slf4j.Logger;
@@ -52,31 +54,35 @@ public class LegendaryCraftApplication {
 	}
 
 	@Bean
-	public CommandLineRunner characterFilling(CharacterRepository repository) {
+	public CommandLineRunner characterFilling(CharacterRepository characterRepo, AccountRepository accountRepo) {
 		return (args) -> {
-			repository.save(new Character("Aymericard", 99));
-			repository.save(new Character("Romdeu", 100));
-			repository.save(new Character("xXDarkLink78Xx", 2));
-			repository.save(new Character("Tigre Bois", 74));
-			repository.save(new Character("Samantha", 1));
+            Account aymericard = new Account();
+            aymericard.setUsername("aymericard");
+            aymericard.setPassword("lolilol");
+            aymericard.getCharacters().add(new Character(aymericard, "Aymericard", 99));
+            aymericard.getCharacters().add(new Character(aymericard, "Romdeu", 100));
+            aymericard.getCharacters().add(new Character(aymericard, "xXDarkLink78Xx", 2));
+            aymericard.getCharacters().add(new Character(aymericard, "Tigre Bois", 74));
+            aymericard.getCharacters().add(new Character(aymericard, "Samantha", 1));
+			accountRepo.save(aymericard);
 
 			log.info("-----------------------------");
 			log.info("Characters found with findAll():");
 
-			for (Character charac : repository.findAll()) {
+			for (Character charac : characterRepo.findAll()) {
 				log.info(charac.toString());
 			}
 
 			log.info("-----------------------------");
 			log.info("Character found with findOne(4):");
 
-			Character p = repository.findOne(4L);
+			Character p = characterRepo.findOne(4L);
 			log.info(p.toString());
 
 			log.info("-----------------------------");
 			log.info("Character found with findByName(Samantha):");
 
-			for (Character charac : repository.findByName("Samantha")) {
+			for (Character charac : characterRepo.findByName("Samantha")) {
 				log.info(charac.toString());
 			}
 		};

@@ -1,9 +1,6 @@
 package fr.univlille1.hembertgiraudet.legendarycraft.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Character {
@@ -12,13 +9,16 @@ public class Character {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Account account;
     private String name;
     private int level;
 
     public Character() {
     }
 
-    public Character(String name, int level) {
+    public Character(Account account, String name, int level) {
+        this.account = account;
         this.name = name;
         this.level = level;
     }
@@ -47,6 +47,7 @@ public class Character {
     public String toString() {
         return "Character{" +
                 "id=" + id +
+                ", account=" + account +
                 ", name='" + name + '\'' +
                 ", level=" + level +
                 '}';
