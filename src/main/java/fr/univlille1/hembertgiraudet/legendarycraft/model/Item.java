@@ -12,6 +12,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    private ItemType type;
     private String name;
     private String description;
 

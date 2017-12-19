@@ -63,8 +63,12 @@ public class LegendaryCraftApplication {
             aymericard.getCharacters().add(new Character(aymericard, "Romdeu", 100));
             aymericard.getCharacters().add(new Character(aymericard, "xXDarkLink78Xx", 2));
             aymericard.getCharacters().add(new Character(aymericard, "Tigre Bois", 74));
-            aymericard.getCharacters().add(new Character(aymericard, "Samantha", 1));
 			accountRepo.save(aymericard);
+
+			Account samantha = new Account();
+			samantha.setUsername("samantha");
+			samantha.setPassword("lolilol");
+			samantha.getCharacters().add(new Character(samantha, "Samantha", 1));
 
 			log.info("-----------------------------");
 			log.info("Characters found with findAll():");
