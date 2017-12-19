@@ -1,5 +1,8 @@
 package fr.univlille1.hembertgiraudet.legendarycraft.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeId;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +12,8 @@ public class Character {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Account account;
     private String name;
     private int level;
@@ -37,6 +41,14 @@ public class Character {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public long getId() {

@@ -1,7 +1,9 @@
 package fr.univlille1.hembertgiraudet.legendarycraft.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,8 +17,8 @@ public class Account {
     private String username;
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Character> characters = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Character> characters = new ArrayList<>();
 
     public Account() {
     }
@@ -45,11 +47,11 @@ public class Account {
         this.password = password;
     }
 
-    public Set<Character> getCharacters() {
+    public List<Character> getCharacters() {
         return characters;
     }
 
-    public void setCharacters(Set<Character> characters) {
+    public void setCharacters(List<Character> characters) {
         this.characters = characters;
     }
 

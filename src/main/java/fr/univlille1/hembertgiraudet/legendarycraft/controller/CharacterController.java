@@ -1,5 +1,6 @@
 package fr.univlille1.hembertgiraudet.legendarycraft.controller;
 
+import fr.univlille1.hembertgiraudet.legendarycraft.model.Account;
 import fr.univlille1.hembertgiraudet.legendarycraft.model.Character;
 import fr.univlille1.hembertgiraudet.legendarycraft.repository.AccountRepository;
 import fr.univlille1.hembertgiraudet.legendarycraft.repository.CharacterRepository;
@@ -40,15 +41,20 @@ public class CharacterController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addCharacterPost(@ModelAttribute Character c){
+    public String addCharacterPost(@ModelAttribute Character c, Principal p){
         // TODO: Sécurité des entrées
-        Character newCharac = characterRepository.save(c);
-        return "redirect:"+newCharac.getId();
+        Account account = accountRepository.findByUsername(p.getName());
+        c.setAccount(account);
+        account.getCharacters().add(c);
+        accountRepository.save(account);
+        return "redirect:"+account.getCharacters().get(account.getCharacters().size()-1).getId();
     }
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteCharacter(@PathVariable String id){
-        characterRepository.delete(Long.parseLong(id));
+    public String deleteCharacter(@PathVariable String id, Principal p){
+        Account a = accountRepository.findByUsername(p.getName());
+        a.getCharacters().remove(characterRepository.findOne(Long.parseLong(id)));
+        accountRepository.save(a);
         return "redirect:/character";
     }
 
