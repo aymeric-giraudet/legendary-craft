@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonTypeId;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Character {
@@ -18,13 +19,44 @@ public class Character {
     private String name;
     private int level;
 
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Item> stuff;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Stats stats;
+
     public Character() {
     }
 
-    public Character(Account account, String name, int level) {
+    public Character(Account account, String name, int level, Stats stats) {
         this.account = account;
         this.name = name;
         this.level = level;
+        this.stats = stats;
+    }
+
+    public Stats getStuffStats() {
+        Stats newStats = stats;
+        for(Item item : stuff) {
+            newStats = newStats.modify(item.getStats());
+        }
+        return newStats;
+    }
+
+    public List<Item> getStuff() {
+        return stuff;
+    }
+
+    public void setStuff(List<Item> stuff) {
+        this.stuff = stuff;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
     }
 
     public String getName() {
@@ -62,6 +94,8 @@ public class Character {
                 ", account=" + account +
                 ", name='" + name + '\'' +
                 ", level=" + level +
+                ", stuff=" + stuff +
+                ", stats=" + stats +
                 '}';
     }
 }

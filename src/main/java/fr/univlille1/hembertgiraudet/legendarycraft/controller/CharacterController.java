@@ -31,7 +31,9 @@ public class CharacterController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getCharacterById(@PathVariable String id, Model model){
-        model.addAttribute("character", characterRepository.findOne(Long.parseLong(id)));
+        Character c = characterRepository.findOne(Long.parseLong(id));
+        model.addAttribute("character", c);
+        model.addAttribute("stats", c.getStuffStats());
         return "character/character";
     }
 

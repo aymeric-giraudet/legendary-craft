@@ -7,7 +7,22 @@
 <body>
 <h1>My character</h1>
 <h2>{{character.name}}</h2>
-<h3>{{character.level}}</h3>
+<h3>Level:{{character.level}}</h3>
+<h3>Stuff:</h3>
+<ul>
+    {{#character.stuff}}
+    <li>{{name}}</li>
+    {{/character.stuff}}
+</ul>
+<h3>Stats:</h3>
+<ul>
+    <li>Armure : {{stats.defense}}</li>
+    <li>Force : {{stats.force}}</li>
+    <li>Intelligence : {{stats.intelligence}}</li>
+    <li>Endurance : {{stats.endurance}}</li>
+    <li>Agilite : {{stats.agilite}}</li>
+    <li>Critique : {{stats.critique}}</li>
+</ul>
 <a href="/character/update/{{character.id}}">Modifier</a><br>
 <a href="/character/delete/{{character.id}}" onclick="return confirm('Supprimer le personnage ?')">Supprimer</a><br>
 <a href="/character">< Retour</a>

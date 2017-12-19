@@ -1,9 +1,6 @@
 package fr.univlille1.hembertgiraudet.legendarycraft.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Item {
@@ -16,11 +13,31 @@ public class Item {
     private String name;
     private String description;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Stats stats;
+
     public Item() {}
 
-    public Item(String name, String description) {
+    public Item(String name, String description, Stats stats) {
         this.name = name;
         this.description = description;
+        this.stats = stats;
+    }
+
+    public ItemType getType() {
+        return type;
+    }
+
+    public void setType(ItemType type) {
+        this.type = type;
+    }
+
+    public Stats getStats() {
+        return stats;
+    }
+
+    public void setStats(Stats stats) {
+        this.stats = stats;
     }
 
     public String getName() {
