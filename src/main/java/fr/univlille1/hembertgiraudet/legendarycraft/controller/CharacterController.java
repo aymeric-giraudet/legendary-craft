@@ -2,6 +2,7 @@ package fr.univlille1.hembertgiraudet.legendarycraft.controller;
 
 import fr.univlille1.hembertgiraudet.legendarycraft.model.Account;
 import fr.univlille1.hembertgiraudet.legendarycraft.model.Character;
+import fr.univlille1.hembertgiraudet.legendarycraft.model.Stats;
 import fr.univlille1.hembertgiraudet.legendarycraft.repository.AccountRepository;
 import fr.univlille1.hembertgiraudet.legendarycraft.repository.CharacterRepository;
 import org.slf4j.Logger;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @Controller
-@RequestMapping("/character")
+@RequestMapping(value={"/", "/character"})
 public class CharacterController {
     @Autowired
     private CharacterRepository characterRepository;
@@ -47,6 +48,7 @@ public class CharacterController {
         // TODO: Sécurité des entrées
         Account account = accountRepository.findByUsername(p.getName());
         c.setAccount(account);
+        //c.setStats(new Stats(0,0,0,0,0,0));
         account.getCharacters().add(c);
         accountRepository.save(account);
         return "redirect:"+account.getCharacters().get(account.getCharacters().size()-1).getId();

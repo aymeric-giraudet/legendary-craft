@@ -75,6 +75,14 @@ public class Stats {
         this.defense = defense;
     }
 
+    public int getCritique() {
+        return critique;
+    }
+
+    public void setCritique(int critique) {
+        this.critique = critique;
+    }
+
     @Override
     public String toString() {
         return "Stats{" +

@@ -35,6 +35,7 @@ public class Character {
         this.stats = stats;
     }
 
+    @JsonIgnore
     public Stats getStuffStats() {
         Stats newStats = stats;
         for(Item item : stuff) {
